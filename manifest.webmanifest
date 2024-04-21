@@ -1,0 +1,15 @@
+{
+    "background_color": "black",
+    "description": "Notre Webapp de musique",
+    "display": "fullscreen",
+    "icons": [
+      {
+        "src": "templates/default/assets/favicons/rubify.png",
+        "sizes": "160x160",
+        "type": "image/png"
+      }
+    ],
+    "name": "Rubify",
+    "short_name": "Rubify",
+    "start_url": "index.php"
+  }
