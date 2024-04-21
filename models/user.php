@@ -54,7 +54,7 @@ class modelUser extends Model
     {
         $this->data = [];
         $this->data = $this->_users();   
-        $this->page->setFile('user.list.php');
+        $this->page->setFile('user.admin.php');
         $this->page->title = Text::_('ADMIN_USERS');
         $this->page->data  = $this->data;
         parent::display();
