@@ -1,15 +1,13 @@
 # Rubify
 Web application written in PHP8.x for MiniDLNA, Spotify-like.
-It allows to browse your audio files and play them.
+It allows to browse your audio files and play them, to manage custom playlists and favorites, put the tracks in a queue, get the lyrics remotely,... 
 
 ![image](https://github.com/RubioApps/Rubify/assets/155658204/672b93ae-64b1-4124-b24d-cf2e66f58057)
-![image](https://github.com/RubioApps/Rubify/assets/155658204/b1ca98bc-24f4-4407-9f86-98250deae46c)
+![image](https://github.com/RubioApps/Rubify/assets/155658204/bb5d01e3-9787-447a-bbdb-b84f24a59949)
 ![image](https://github.com/RubioApps/Rubify/assets/155658204/0ce593a5-73de-48c1-93a0-47181a0d1cd6)
 ![image](https://github.com/RubioApps/Rubify/assets/155658204/19a9573f-d2bc-4d51-9a47-124e10ffbffc)
 ![image](https://github.com/RubioApps/Rubify/assets/155658204/fcd9d8e4-f4b9-4826-85e3-71f18f32fe53)
 ![image](https://github.com/RubioApps/Rubify/assets/155658204/671c8ba0-0504-4e37-837f-e82bd6de07fc)
-
-
 
 You can browse by Album, Artist, Genre, Folder, create your playlists, check the history and upload audio files to your server directly from the app.
 
