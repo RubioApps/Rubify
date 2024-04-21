@@ -34,46 +34,6 @@ use Rubify\Framework\Language\Text;
 
 ?>
 <section>
-    <!--
-    <div class="d-md-none mb-3">
-        <div class="album-art-banner mb-1" style="background-image: url('<?= $page->data['album']->thumbnail; ?>')"></div>
-        <div class="row">
-            <div class="album-title text-truncate"><?= $page->title; ?></div>
-        </div>
-        <div class="row pb-3">
-            <?php if($page->data['album']->artist != ''): ?>
-            <div class="album-artist text-truncate mb-1">
-                <?= $page->data['album']->artist; ?>                
-                <a class="bi bi-box-arrow-up-right framed" href="<?= $page->data['album']->alink; ?>"></a>
-            </div>
-            <?php endif;?>            
-        </div>
-        <div class="row row-cols-2 mb-5">
-            <div class="album-info col-8 text-start text-nowrap">
-                <ul class="nav">
-                    <li class="nav-item bi bi-collection p-1 me-3 ">
-                        <a class="framed" href="<?= $page->data['album']->glink;?>">
-                            <span><?= Text::_($page->data['album']->genre); ?></span>
-                        </a>
-                    </li>
-                    <li class="nav-item bi bi-disc p-1 me-3">
-                        <span><?= $page->data['album']->discs; ?></span>
-                    </li>
-                    <li class="nav-item bi bi-file-music p-1 me-3">
-                        <span><?= $page->data['album']->tracks; ?></span>
-                    </li>
-                    <li class="nav-item bi bi-clock p-1 me-3">
-                        <span><?= $page->data['album']->duration_fm; ?></span>
-                    </li>
-                </ul>              
-            </div>
-        </div> 
-        <div class="row d-flex">
-            <button class="play-album col me-2 btn btn-primary bi bi-play"></button>
-            <button class="queue-album col me-2 btn btn-success bi bi-plus"></button>
-        </div>                  
-    </div>
-    -->
     <div class="d-flex row m-0 p-0 mb-3">
         <div class="col-12 col-md-4 text-center">
             <img class="w-100 " src="<?= $page->data['album']->thumbnail; ?>" />
@@ -87,7 +47,11 @@ use Rubify\Framework\Language\Text;
                 <?= $page->data['album']->artist; ?>                
                 <a class="bi bi-box-arrow-up-right framed" href="<?= $page->data['album']->alink; ?>"></a>
             </div>
-            <?php endif;?>                                 
+            <?php endif;?>
+            <div class="row text-center d-flex mb-5">
+                <button class="play-album col me-2 btn btn-primary bi bi-play"><i><?= Text::_('PLAY');?></i></button>
+                <button class="queue-album col me-2 btn btn-success bi bi-plus"><i><?= Text::_('QUEUE');?></i></button>
+            </div>  
             <div class="album-info mt-2">
                 <ul class="nav flex-column flex-md-row fs-5">
                     <li class="nav-item bi bi-collection p-1 me-3 ">
@@ -107,11 +71,7 @@ use Rubify\Framework\Language\Text;
                 </ul>                           
             </div>                     
         </div>
-    </div>
-    <div class="row text-center d-flex mb-5 d-none d-md-flex">
-        <button class="play-album col me-2 btn btn-primary bi bi-play"><i><?= Text::_('PLAY');?></i></button>
-        <button class="queue-album col me-2 btn btn-success bi bi-plus"><i><?= Text::_('QUEUE');?></i></button>
-    </div>    
+    </div>  
 </section>  
 <section>
     <?php
