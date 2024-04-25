@@ -289,6 +289,7 @@ class modelTrack extends Model
                 AND (`OB`.`REF_ID` = '" . $row['OBJECT_ID'] . "' OR `OB`.`OBJECT_ID` = '" . $row['OBJECT_ID'] . "' )
                 ORDER BY LENGTH(`PR`.`PARENT_ID`)
                 ";
+                
             $this->database->query($sql);                    
             if($ref = $this->database->loadRow())
             {
