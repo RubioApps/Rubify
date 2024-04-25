@@ -209,7 +209,7 @@ jQuery.extend({
                       artist:  this.song.artist,
                       album:  this.song.album,
                       genre:  this.song.genre,
-                      artwork: [{ src:  this.song.thumbnail, sizes: '150x150', type: 'image/jpg' }]
+                      artwork: [{ src:  this.song.thumbnail, sizes: '96x96', type: 'image/jpg' }]
                     });                 
 
                     navigator.mediaSession.setActionHandler('previoustrack', function() {
