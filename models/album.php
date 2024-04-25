@@ -94,6 +94,12 @@ class modelAlbum extends Model
         exit(0);                      
     }
 
+    public function get( $oid = null)
+    {
+        $this->oid = $oid;
+        return $this->_getAlbum();
+    }    
+
     public function getTracks()
     {    
         if(!$this->oid)
@@ -242,7 +248,7 @@ class modelAlbum extends Model
                 LEFT JOIN `ALBUM_ART` `AA` ON `DT`.`ALBUM_ART`=`AA`.`ID`
             WHERE `OB`.`PARENT_ID` = '$this->oid'
             AND `OB`.`CLASS` = '$className' " . (!empty($disc)? " AND `DT`.`DISC` = '$disc' " : "") . " 
-            ORDER BY `DT`.`DISC` ASC , `DT`.`TRACK` ASC ;";        
+            ORDER BY `OB`.`REF_ID` DESC, `DT`.`DISC` ASC , `DT`.`TRACK` ASC ;";        
 
         $this->database->query($sql);
         $rows = $this->database->loadRows();   

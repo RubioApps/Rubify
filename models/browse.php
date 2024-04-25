@@ -71,7 +71,9 @@ class modelBrowse extends Model
         $pid = $row['PARENT_ID'];
 
         //Get the parent
-        $sql = "SELECT `ID` , `OBJECT_ID` , `NAME` , `CLASS` FROM `OBJECTS` WHERE `OBJECT_ID` = '$pid';";
+        $sql = "SELECT `ID` , `OBJECT_ID` , `NAME` , `CLASS` FROM `OBJECTS` 
+        WHERE `OBJECT_ID` = '$pid'
+        ;";
         $this->database->query($sql);
         $row = $this->database->loadRow();
         
@@ -83,7 +85,9 @@ class modelBrowse extends Model
         $parent->link   = Factory::Link('browse','oid=' . $parent->oid . ':' . $parent->alias);        
 
         //Get children
-        $sql = "SELECT `ID` , `OBJECT_ID` , `NAME` , `CLASS` FROM `OBJECTS` WHERE `PARENT_ID` = '$oid' ORDER BY `REF_ID`, `NAME`;";
+        $sql = "SELECT `ID` , `OBJECT_ID` , `NAME` , `CLASS` FROM `OBJECTS` WHERE `PARENT_ID` = '$oid' 
+        ORDER BY `NAME`,`REF_ID`
+        ;";
         $this->database->query($sql);        
         $rows  = $this->database->loadRows();  
 

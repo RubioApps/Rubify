@@ -47,3 +47,21 @@ use Rubify\Framework\Language\Text;
         <?php endforeach; ?>        
     </div>
 </section>
+<section>
+    <div class="h3 mt-5"><?=Text::_('RECENTLY_ADDED');?></div>
+    <div class="rbfy-tracks-grid row row-cols-2 row-cols-sm-4 row-cols-md-5 row-cols-lg-6 g-2 g-lg-3 mt-1">                
+        <?php foreach ($page->data['recent_tracks'] as $row): ?>
+        <div class="col">
+            <div class="rbfy-card card p-3 border text-center">
+                <a class="framed" href="<?= $row->link;?>">
+                    <img src="<?= $row->thumbnail;?>" class="card-img-top" title="<?= $row->title;?>" alt="<?= $row->title;?>">
+                    <div class="card-body p-0">
+                        <h6 class="card-title text-truncate"><?= $row->title;?></h6>
+                    </div>
+                </a>
+            </div>             
+        </div> 
+        <?php endforeach; ?>        
+    </div>
+</section>
+

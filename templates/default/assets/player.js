@@ -87,7 +87,9 @@ jQuery.extend({
 
             //Get the DOM element
             if(!this.audio){
-                this.audio = new Audio();              
+                this.audio = new Audio();  
+                $(this.audio).attr('id','audioFile');
+                $(this.audio).attr('preload','none');
             }
 
             //Get the songs from the queue
@@ -118,8 +120,14 @@ jQuery.extend({
         },
         //Push a song to the last position in the queue
         push: function (data) {
-            this.queue.push(data);            
-            this.reorder();
+            if(data.audio){
+                const track = $('<source>');
+                track.attr('src',data.audio);
+                track.attr('type',data.mime);
+                track.prependTo($(this.audio));
+                this.queue.push(data);     
+                this.reorder();
+            }
         },
         pop: function(data){
             let index = parseInt(data.order) - 1;
@@ -201,7 +209,7 @@ jQuery.extend({
                       artist:  this.song.artist,
                       album:  this.song.album,
                       genre:  this.song.genre,
-                      artwork: [{ src:  this.song.thumbnail, sizes: '96x96', type: 'image/jpg' }]
+                      artwork: [{ src:  this.song.thumbnail, sizes: '150x150', type: 'image/jpg' }]
                     });                 
 
                     navigator.mediaSession.setActionHandler('previoustrack', function() {
@@ -226,7 +234,10 @@ jQuery.extend({
                     navigator.mediaSession.setActionHandler('pause', function() {
                         $.player.isplaying = true;
                         $.player.play();
-                    });                                      
+                    });    
+                    
+                    navigator.mediaSession.setActionHandler('seekbackward', function() {});
+                    navigator.mediaSession.setActionHandler('seekforward', function() {});                    
                 }                   
 
                 var promise = this.audio.play();                
@@ -365,7 +376,6 @@ jQuery.extend({
             //Let's pause the audio            
             if(this.isplaying) this.audio.pause();
             this.audio.src='';   
-            //this.audio.load();
 
             //Shuffle the queue
             if(this.isshuffle){

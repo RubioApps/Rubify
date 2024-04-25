@@ -87,26 +87,40 @@ class modelHome extends Model
         }        
         $this->data['menu'] = $array;
 
-        //Test
-        /*
-        $sql = "SELECT COUNT(`OB`.`REF_ID`) `TOTAL` FROM `OBJECTS` `OB` , `DETAILS` `DT` 
-            WHERE `OB`.`DETAIL_ID` = `DT`.`ID`
-            AND `OB`.`CLASS`='" . RBFY_CLASS_TRACK . "'
-            GROUP BY `OB`.`REF_ID`
-            ";
+        //Recent tracks
+        $sql = "SELECT `OB`.`OBJECT_ID` FROM `OBJECTS` `OB` 
+        LEFT JOIN `DETAILS` `DT` ON `OB`.`DETAIL_ID`=`DT`.`ID` 
+        WHERE `OB`.`CLASS` = '" . RBFY_CLASS_TRACK ."'
+        GROUP BY `DT`.`PATH`
+        ORDER BY `DT`.`TIMESTAMP` DESC LIMIT 24"
+        ;
         $this->database->query($sql);
-        $row = $this->database->loadRow();
-        */
+        $rows = $this->database->loadRows(); 
+        $track = Factory::getModel('track');
+        $array  = []; 
+        foreach($rows as $row)
+        {
+            $array[] = $track->get($row['OBJECT_ID']);
+        }
+        $this->data['recent_tracks'] = $array;
 
-        /*
-        //All tables
-        $sql = "SELECT name FROM sqlite_schema WHERE type ='table' AND name NOT LIKE 'sqlite_%';";
-        $sql = "SELECT `CLASS` FROM `OBJECTS` GROUP BY `CLASS`;";
+        //Recent albums
+        $sql = "SELECT `OB`.`OBJECT_ID` FROM `OBJECTS` `OB` 
+        LEFT JOIN `DETAILS` `DT` ON `OB`.`DETAIL_ID`=`DT`.`ID` 
+        WHERE `OB`.`CLASS` =  '" . RBFY_CLASS_ALBUM_MUSIC ."'
+        GROUP BY `DT`.`PATH`
+        ORDER BY `DT`.`TIMESTAMP` DESC LIMIT 24"
+        ;
         $this->database->query($sql);
-        $rows = $this->database->loadRows();
-        error_log(print_r($rows,true));
-        die();        
-        */
+        $rows = $this->database->loadRows(); 
+        $album = Factory::getModel('album');
+        $array  = []; 
+        foreach($rows as $row)
+        {
+            $array[] = $album->get($row['OBJECT_ID']);
+        }
+        $this->data['recent_albums'] = $array;     
+               
         $this->page->data       = $this->data;
         parent::display();
     }

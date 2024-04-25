@@ -259,7 +259,7 @@ class modelTrack extends Model
         {          
             $item = new \stdClass();
             $item->id           = $row['ID'];
-            $item->oid          = $row['OBJECT_ID'];
+            $item->oid          = $row['OBJECT_ID'];            
             $item->title        = html_entity_decode($row['TITLE']);
             $item->name         = html_entity_decode($row['NAME']);
             $item->alias        = Helpers::encode($item->title);
@@ -275,6 +275,7 @@ class modelTrack extends Model
             $item->samplerate   = $row['SAMPLERATE'];
             $item->channels     = $row['CHANNELS'];
             $item->mime         = $row['MIME'];
+            $item->link         = Factory::Link('track','oid=' . $item->oid . ':' . $item->alias);    
             $item->glink        = Helpers::getGenreLink($item->genre);
             $item->alink        = Helpers::getArtistLink($item->artist);
             $item->isfavorite   = $this->_isfavorite();
