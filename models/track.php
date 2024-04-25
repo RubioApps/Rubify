@@ -283,11 +283,12 @@ class modelTrack extends Model
             //Get the parent
             $className = RBFY_CLASS_ALBUM_MUSIC;
             $sql = "SELECT `PR`.* 
-                FROM `OBJECTS` `OB` , `OBJECTS` `PR` 
+                FROM `OBJECTS` `OB`  , `OBJECTS` `PR` 
                 WHERE `OB`.`PARENT_ID` = `PR`.`OBJECT_ID` 
                 AND `PR`.`CLASS`= '$className' 
-                AND `OB`.`REF_ID` = '" . $row['REF_ID'] . "' 
-                ORDER BY LENGTH(`PR`.`PARENT_ID`) ;";
+                AND `OB`.`REF_ID` = '" . $row['OBJECT_ID'] . "' 
+                ORDER BY LENGTH(`PR`.`PARENT_ID`)
+                ";
             $this->database->query($sql);                    
             if($ref = $this->database->loadRow())
             {
