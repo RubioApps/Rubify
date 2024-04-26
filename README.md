@@ -24,6 +24,7 @@ It is recommended to run this web app under Apache2 for domestic purposes
 - [Requirements](#requirements)
 - [Build your folder](#build-your-folders)
 - [Apache2 setup](#apache-setup)
+- [MiniDLNA setup](#minidlna-setup)
 - [Configuration](#configuration)
 - [License](#license)
 
@@ -80,6 +81,21 @@ The whole Apache2 setup (mysite.conf) would be like this
       Deny from all
     </Directory>
 ```
+## MiniDLNA setup
+You must setup the minidlna.conf file to fore the refresh and inofity correctly. Hereinafter a functional example:
+```
+user=minidlna
+media_dir=A,/path/to/your/uploads
+media_dir=A,/path/to/your/dlna/storage
+db_dir=/var/lib/minidlna
+log_dir=/var/log/minidlna
+root_container=M
+port=8200
+presentation_url=https://yoursite.com
+inotify=yes
+notify_interval=60
+```
+
 ## Configuration
 
 Rubify can be fully configured by overriding the file [configuration.php](https://github.com/RubioApps/Rubify/blob/main/configuration.php).
