@@ -3,7 +3,7 @@ Rubify is a web application written in PHP8.x for MiniDLNA, Spotify-like.
 MiniDLNA is a light DLNA UPnP server largely based on MusicBrainz, that creates a gallery of media sources. When used for audio files, it allows to class them automatically based on the tags of the audio files.
 
 Rubify is an interface that allows you to browse your audio files and play them, to manage custom playlists and favorites, put the tracks in a queue, get the lyrics remotely,... 
-You can navigate through the menus without stopping the music. It's is not obstrusive, all the operations are done asynchronously to let you enjoy your favorite tracks.
+You can navigate through the menus without stopping the music. It's not obstrusive, all the operations are done asynchronously to let you enjoy your favorite tracks.
 
 - Demo: https://famillerubio.com/rubify/
 - User: guest
