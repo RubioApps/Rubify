@@ -1,6 +1,9 @@
 # Rubify
-Web application written in PHP8.x for MiniDLNA, Spotify-like.
-It allows to browse your audio files and play them, to manage custom playlists and favorites, put the tracks in a queue, get the lyrics remotely,... 
+Rubify is a web application written in PHP8.x for MiniDLNA, Spotify-like.
+MiniDLNA is a light DLNA UPnP server largely based on MusicBrainz, that creates a gallery of media sources. When used for audio files, it allows to class them automatically based in the tags of the audio files.
+
+Rubify will allow to browse your audio files and play them, to manage custom playlists and favorites, put the tracks in a queue, get the lyrics remotely,... 
+You can navigate through the menus without stopping the music. It's is not obstrusive, all the operations are done asynchronously to let you enjoy your favorite tracks.
 
 - Demo: https://famillerubio.com/rubify/
 - User: guest
@@ -13,11 +16,11 @@ It allows to browse your audio files and play them, to manage custom playlists a
 ![image](https://github.com/RubioApps/Rubify/assets/155658204/fcd9d8e4-f4b9-4826-85e3-71f18f32fe53)
 ![image](https://github.com/RubioApps/Rubify/assets/155658204/671c8ba0-0504-4e37-837f-e82bd6de07fc)
 
-You can browse by Album, Artist, Genre, Folder, create your playlists, check the history and upload audio files to your server directly from the app.
+You can also browse by Album, Artist, Genre, Folder, create your own playlists, check the history and upload your audio files to the server directly from the web application.
+This web app uses a default template based on [Bootstrap 5](https://getbootstrap.com) and [JQuery](https://jquery.com/), which is fully responsive for mobile devices.
 
-This web apps uses a default template based on [Bootstrap 5](https://getbootstrap.com) and [JQuery](https://jquery.com/), which is fully responsive for mobile devices.
-
-It is recommended to run this web app under Apache2 for domestic purposes
+This is NOT an Android APK but a Web Application (like a Website) and you can access to it with any browser like Chrome or Firefox.
+From server side, it is recommended to run this web app under Apache2 for domestic purposes
 
 ## Table of contents
 
@@ -32,8 +35,9 @@ It is recommended to run this web app under Apache2 for domestic purposes
 
 - miniDLNA running as a daemon service in your server. Further info at https://help.ubuntu.com/community/MiniDLNA
 - Apache2 Web Server
-- PHP8.x
-- getID3. Further info at https://www.getid3.org>
+- PHP8.x, fpm preferred
+- PHP8.x SQLite Extension
+- getID3 installer with composer. Further info at https://www.getid3.org>
 
 ## Build your folders
 
@@ -99,6 +103,36 @@ notify_interval=60
 ## Configuration
 
 Rubify can be fully configured by overriding the file [configuration.php](https://github.com/RubioApps/Rubify/blob/main/configuration.php).
+
+```
+class RbfyConfig
+{
+        public $sitename  = 'Rubify';
+        public $live_site = 'https://yoursite.com';     
+        public $use_cache = true;
+        public $use_symlink = false;        
+        public $use_autolog = false;
+        public $enable_upload = true;        
+        public $key      = 'put-here-a-long-encryption-key';
+	    public $list_limit = 60;
+        public $minidlna = [
+                'dir'   => '/var/lib/minidlna',
+                'http'  => 'http://192.168.2.1:8200'
+                ];
+	public $theme = 'default';
+}
+```
+- sitename: (string) Your site name
+- live_site: (string) Your host URL
+- use_cache: (bool) If you want to store the thumbnails into a local directory under your webserver root. This will avoid to use symbolic links
+- use_symlink: (bool) Not recommended. If your webserver runs on the same machine than minidlna, you can create a symlink at /webroot/cache/thumbnails that points to /var/lib/minidlna/art_cache. 
+- use_autolog: (bool) Not recommended. This allow to login to Rubify automatically if the client is within the same network than the webserver. For instance, if your host IP is 192.168.1.1, all the clients connected from 192.168.1.0/24 will be logged without using a user/password. This will disable the use of a user profile. 
+- enable_upload: (bool) This allows a user to upload his own music files. The allowed formats are webm, m4a, mp3. All of them will be transcoded into mp3 and the tags ID3 will be added conveniently. MiniDLNA will detect them and classify in the gallery
+- key: (string) This is an encryption key used for securtiy purposes. The user's databases and cookies are all encrypted with. The more the key is complex, the more the security is enhanced.
+- list_limit: (integer) This is the number of items to display on a page. Default is 60
+- minidlna: (array) This contains the details of your minidlna server
+-     dir: (string) Directory of the files.db database
+-     http: (string) URL as written in the /etc/minidlna.conf file.
 
 ## Legal
 
