@@ -461,7 +461,7 @@ jQuery.extend({
                                     }
                                     $.player.queue = result;
 
-                                    if ($.player.song.oid && ids[0] != $.player.song.oid){
+                                    if ($.player.song && ids[0] != $.player.song.oid){
                                         let wasplaying = $.player.isplaying;
                                         $.player.empty();
                                         $.player.queue = result;
