@@ -2,9 +2,9 @@
 Web application written in PHP8.x for MiniDLNA, Spotify-like.
 It allows to browse your audio files and play them, to manage custom playlists and favorites, put the tracks in a queue, get the lyrics remotely,... 
 
-Demo: https://famillerubio.com/rubify/
-User: guest
-Password: Guest#1234
+- Demo: https://famillerubio.com/rubify/
+- User: guest
+- Password: Guest#1234
 
 ![image](https://github.com/RubioApps/Rubify/assets/155658204/672b93ae-64b1-4124-b24d-cf2e66f58057)
 ![image](https://github.com/RubioApps/Rubify/assets/155658204/bb5d01e3-9787-447a-bbdb-b84f24a59949)
