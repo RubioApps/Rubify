@@ -303,6 +303,37 @@ class User
             $this->data = $this->_parse();
 
         if(!$this->isAdmin()) return false;
+
+        //Remove uploads
+        $uploads = new Upload($username);
+        $uploads->empty();
+
+        //Remove history
+        $history = new History($username);
+        $history->empty();        
+        
+        //Remove playlists
+        $registry   = RBFY_USERS . DIRECTORY_SEPARATOR . 'playlist' . DIRECTORY_SEPARATOR . $username . '.xml';
+        if(file_exists($registry)) unlink($registry);       
+
+        //Remove queue
+        $registry   = RBFY_USERS . DIRECTORY_SEPARATOR . 'queue' . DIRECTORY_SEPARATOR . $username . '.xml';
+        if(file_exists($registry)) unlink($registry);          
+
+        //Remove exports
+        $registry   = RBFY_USERS . DIRECTORY_SEPARATOR . 'exports' . DIRECTORY_SEPARATOR . 'registry.xml';
+        if(file_exists($registry) && ($content=file_get_contents($registry))) 
+        {                                          
+            $xml    = new \SimpleXMLElement($content);                
+            if($nodes  = $xml->xpath("//entry[@user='" . $username . "']"))
+            {                
+                foreach($nodes as $node)
+                {
+                    unset($node[0]);
+                }                
+            }
+        }          
+
         unset($this->data[$username]); 
         return $this->_save();
     }    
