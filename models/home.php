@@ -88,9 +88,11 @@ class modelHome extends Model
         $this->data['menu'] = $array;
 
         //Recent tracks
+        $className = RBFY_CLASS_TRACK;
         $sql = "SELECT `OB`.`OBJECT_ID` FROM `OBJECTS` `OB` 
         LEFT JOIN `DETAILS` `DT` ON `OB`.`DETAIL_ID`=`DT`.`ID` 
-        WHERE `OB`.`CLASS` = '" . RBFY_CLASS_TRACK ."'
+        WHERE `OB`.`CLASS` = '$className' 
+        AND `OB`.`REF_ID` IS NOT NULL
         GROUP BY `DT`.`PATH`
         ORDER BY `DT`.`TIMESTAMP` DESC LIMIT 24"
         ;
@@ -103,23 +105,7 @@ class modelHome extends Model
             $array[] = $track->get($row['OBJECT_ID']);
         }
         $this->data['recent_tracks'] = $array;
-
-        //Recent albums
-        $sql = "SELECT `OB`.`OBJECT_ID` FROM `OBJECTS` `OB` 
-        LEFT JOIN `DETAILS` `DT` ON `OB`.`DETAIL_ID`=`DT`.`ID` 
-        WHERE `OB`.`CLASS` =  '" . RBFY_CLASS_ALBUM_MUSIC ."'
-        GROUP BY `DT`.`PATH`
-        ORDER BY `DT`.`TIMESTAMP` DESC LIMIT 24"
-        ;
-        $this->database->query($sql);
-        $rows = $this->database->loadRows(); 
-        $album = Factory::getModel('album');
-        $array  = []; 
-        foreach($rows as $row)
-        {
-            $array[] = $album->get($row['OBJECT_ID']);
-        }
-        $this->data['recent_albums'] = $array;     
+  
                
         $this->page->data       = $this->data;
         parent::display();

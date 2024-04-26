@@ -259,7 +259,8 @@ class modelTrack extends Model
         {          
             $item = new \stdClass();
             $item->id           = $row['ID'];
-            $item->oid          = $row['OBJECT_ID'];            
+            $item->oid          = $row['OBJECT_ID'];   
+            $item->set          = $row['REF_ID'] ?? 'NULL';         
             $item->title        = html_entity_decode($row['TITLE']);
             $item->name         = html_entity_decode($row['NAME']);
             $item->alias        = Helpers::encode($item->title);
@@ -281,14 +282,12 @@ class modelTrack extends Model
             $item->isfavorite   = $this->_isfavorite();
 
             //Get the parent
-            $className = RBFY_CLASS_ALBUM_MUSIC;
-            $sql = "SELECT `PR`.* , `OB`.`OBJECT_ID` AS `OID` 
-                FROM `OBJECTS` `OB`  , `OBJECTS` `PR` 
-                WHERE `OB`.`PARENT_ID` = `PR`.`OBJECT_ID` 
-                AND `PR`.`CLASS`= '$className' 
-                AND (`OB`.`REF_ID` = '" . $row['OBJECT_ID'] . "' OR `OB`.`OBJECT_ID` = '" . $row['OBJECT_ID'] . "' )
-                ORDER BY LENGTH(`PR`.`PARENT_ID`)
-                ";
+            $className = RBFY_CLASS_ALBUM_MUSIC;            
+            $sql = "SELECT * FROM OBJECTS WHERE OBJECT_ID IN
+            (SELECT PARENT_ID FROM OBJECTS WHERE (REF_ID = '{$item->set}' OR OBJECT_ID= '{$item->set}'))                
+            AND CLASS= '$className'
+            ";
+                
             $this->database->query($sql);                    
             if($ref = $this->database->loadRow())
             {
