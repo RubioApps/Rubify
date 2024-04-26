@@ -86,7 +86,7 @@ The whole Apache2 setup (mysite.conf) would be like this
     </Directory>
 ```
 ## MiniDLNA setup
-You must setup the minidlna.conf file to fore the refresh and inofity correctly. Hereinafter a functional example:
+You must setup the minidlna.conf file to force the refresh. Hereinafter a functional example:
 ```
 user=minidlna
 media_dir=A,/path/to/your/uploads
