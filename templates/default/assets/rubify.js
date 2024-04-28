@@ -366,7 +366,8 @@ jQuery.extend({
                             if (list.songs) {
                                 $.player.queue = [];
                                 $.each(list.songs, function (key) {
-                                    $.player.queue.push(list.songs[key]);
+                                    $.player.push(list.songs[key]);
+
                                 });
                                 //Display
                                 if(!$.player.queue.length){

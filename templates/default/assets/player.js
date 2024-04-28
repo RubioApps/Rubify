@@ -94,7 +94,8 @@ jQuery.extend({
 
             //Get the songs from the queue
             if (list.songs) {
-                this.queue = [];
+                $(this.audio).find('source').remove(); 
+                this.queue = [];                
                 $.each(list.songs, function (key,song) {
                     $.player.push(song);
                 });
@@ -121,28 +122,41 @@ jQuery.extend({
         //Push a song to the last position in the queue
         push: function (data) {
             if(data.audio){
-                const track = $('<source>');
-                track.attr('src',data.audio);
-                track.attr('type',data.mime);
-                track.prependTo($(this.audio));
+                if(!$(this.audio).find('[src="'+ data.audio +'"]').length){
+                    $('<source>').attr({
+                        'src':  data.audio,
+                        'type': data.mime
+                    }).prependTo($(this.audio));
+                }                
                 this.queue.push(data);     
                 this.reorder();
             }
         },
         pop: function(data){
-            let index = parseInt(data.order) - 1;
-            let result = [];
-            for(let i=0;i<this.queue.length && index>0;i++){
-                if(i != index) {
-                    result.push(this.queue[i]);                    
+            if(data.audio){
+                $(this.audio).find('[src="'+ data.audio +'"]').remove();            
+                let index = parseInt(data.order) - 1;
+                let result = [];
+                for(let i=0;i<this.queue.length && index>0;i++){
+                    if(i != index) {
+                        result.push(this.queue[i]);                    
+                    }
                 }
+                this.queue = result;
+                this.reorder();
             }
-            this.queue = result;
-            this.reorder();
         },
         unshift: function(data){
-            this.queue.unshift(data);
-            this.reorder();
+            if(data.audio){
+                if(!$(this.audio).find('[src="'+ data.audio +'"]').length){
+                    $('<source>').attr({
+                        'src':  data.audio,
+                        'type': data.mime
+                    }).prependTo($(this.audio));
+                } 
+                this.queue.unshift(data);
+                this.reorder();
+            }
         },
         reorder: function(){
             $.each(this.queue,function(index){
@@ -163,6 +177,7 @@ jQuery.extend({
         },
         //Empty the queue, the player and its display
         empty: function () {
+            $(this.audio).find('source').remove();      
             this.queue = [];
             this.track = 0;
             this.song = null;
@@ -209,7 +224,7 @@ jQuery.extend({
                       artist:  this.song.artist,
                       album:  this.song.album,
                       genre:  this.song.genre,
-                      artwork: [{ src:  this.song.thumbnail, sizes: '96x96', type: 'image/jpg' }]
+                      artwork: [{ src:  this.song.thumbnail, sizes: '150x150', type: 'image/jpg' }]
                     });                 
 
                     navigator.mediaSession.setActionHandler('previoustrack', function() {
