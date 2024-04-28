@@ -40,9 +40,9 @@ use Rubify\Framework\Language\Text;
         <div class="col">
             <div class="rbfy-card card p-3 border text-center">
                 <a class="framed" href="<?= $row->link;?>">
-                    <img src="<?= $row->thumbnail;?>" class="card-img-top" title="<?= $row->name;?>" alt="<?= $row->name;?>">
+                    <img src="<?= $row->thumbnail;?>" class="card-img-top" title="<?=  Text::_($row->name);?>" alt="<?=  Text::_($row->name);?>">
                     <div class="card-body p-0">
-                        <h6 class="card-title text-truncate"><?= $row->name;?></h6>
+                        <h6 class="card-title text-truncate"><?= Text::_($row->name);?></h6>
                     </div>
                 </a>
             </div>             

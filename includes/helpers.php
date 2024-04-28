@@ -194,15 +194,15 @@ class Helpers
     public static function getFolderName($string)
     {
         $special = [
-            '- All Albums -' => 'ALL_ALBUMS',
-            '- All Artists -' => 'ALL_ARTISTS',
-            '- All Songs -' => 'ALL_SONGS',
+            '- All Albums -' => Text::_('ALL_ALBUMS'),
+            '- All Artists -' => Text::_('ALL_ARTISTS'),
+            '- All Songs -' => Text::_('ALL_SONGS'),
         ];        
 
         foreach($special as $k => $v)
             $string = str_replace($k,$v,$string);
         $string = html_entity_decode($string);
-        return Text::_($string);
+        return $string;
     }
 
     /**

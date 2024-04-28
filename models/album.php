@@ -176,11 +176,10 @@ class modelAlbum extends Model
             FROM `OBJECTS` `OB` 
             LEFT JOIN `DETAILS` `DT` ON `OB`.`DETAIL_ID`=`DT`.`ID`
                 LEFT JOIN `ALBUM_ART` `AA` ON `DT`.`ALBUM_ART`=`AA`.`ID`
-            WHERE `OB`.`OBJECT_ID` = '" . $this->oid . "' LIMIT 1;";
+            WHERE `OB`.`OBJECT_ID` = '" . $this->oid . "'";        
             
         $this->database->query($sql);
-        $rows = $this->database->loadRows(); 
-        $data = $rows[0];
+        $data = $this->database->loadRow(); 
 
         $item = new stdClass();
         $item->id       = $data['ID'] ;
